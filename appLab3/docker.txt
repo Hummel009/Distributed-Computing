@@ -1,0 +1,14 @@
+// POSTGRE
+docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:latest
+
+docker exec -it postgres createdb -U postgres distcomp
+
+// CASSANDRA
+
+docker run --name cassandra -p 9042:9042 -d cassandra:latest
+
+docker exec -it cassandra cqlsh
+
+CREATE KEYSPACE distcomp WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'datacenter1' : 3};
+
+CREATE TABLE distcomp.tbl_message_by_country (country text, issue_id bigint, id bigint, content text, PRIMARY KEY ((country), issue_id, id));
