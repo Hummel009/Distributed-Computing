@@ -27,10 +27,10 @@ dependencies {
 	implementation("io.insert-koin:koin-ktor:3.6.0-wasm-alpha2")
 	implementation("io.insert-koin:koin-logger-slf4j:3.6.0-wasm-alpha2")
 
-	implementation("io.ktor:ktor-client-core:2.3.8")
-	implementation("io.ktor:ktor-client-cio:2.3.8")
-	implementation("io.ktor:ktor-client-logging:2.3.8")
-	implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
+	implementation("io.ktor:ktor-client-core:2.3.11")
+	implementation("io.ktor:ktor-client-cio:2.3.11")
+	implementation("io.ktor:ktor-client-logging:2.3.11")
+	implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
 
 	implementation("org.apache.kafka:kafka-clients:3.7.0")
 

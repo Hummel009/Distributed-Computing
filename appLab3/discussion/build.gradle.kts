@@ -24,12 +24,12 @@ dependencies {
 	implementation("io.ktor:ktor-server-netty-jvm")
 	implementation("io.ktor:ktor-server-double-receive")
 
-	implementation("io.insert-koin:koin-ktor:3.6.0-wasm-alpha2")
-	implementation("io.insert-koin:koin-logger-slf4j:3.6.0-wasm-alpha2")
+	implementation("io.insert-koin:koin-ktor:3.5.6")
+	implementation("io.insert-koin:koin-logger-slf4j:3.5.6")
 
 	implementation("com.datastax.cassandra:cassandra-driver-core:3.0.8")
-	implementation("com.datastax.oss:java-driver-core:4.0.1")
-	implementation("com.ing.data:cassandra-jdbc-wrapper:4.11.1")
+	implementation("com.datastax.oss:java-driver-core:4.17.0")
+	implementation("com.ing.data:cassandra-jdbc-wrapper:4.12.0")
 }
 
 java {

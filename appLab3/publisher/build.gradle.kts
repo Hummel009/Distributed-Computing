@@ -24,13 +24,13 @@ dependencies {
 	implementation("io.ktor:ktor-server-netty-jvm")
 	implementation("io.ktor:ktor-server-double-receive")
 
-	implementation("io.insert-koin:koin-ktor:3.6.0-wasm-alpha2")
-	implementation("io.insert-koin:koin-logger-slf4j:3.6.0-wasm-alpha2")
+	implementation("io.insert-koin:koin-ktor:3.5.6")
+	implementation("io.insert-koin:koin-logger-slf4j:3.5.6")
 
-	implementation("io.ktor:ktor-client-core:2.3.8")
-	implementation("io.ktor:ktor-client-cio:2.3.8")
-	implementation("io.ktor:ktor-client-logging:2.3.8")
-	implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
+	implementation("io.ktor:ktor-client-core:2.3.11")
+	implementation("io.ktor:ktor-client-cio:2.3.11")
+	implementation("io.ktor:ktor-client-logging:2.3.11")
+	implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
 }
 
 java {
