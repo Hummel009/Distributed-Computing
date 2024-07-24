@@ -1,12 +1,13 @@
 package com.github.hummel.dc.lab3.dao.impl
 
+import com.datastax.oss.driver.api.core.CqlSession
 import com.github.hummel.dc.lab3.bean.Message
 import com.github.hummel.dc.lab3.dao.MessageDao
 import com.github.hummel.dc.lab3.database.Messages
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class MessageDaoImpl(private val session: com.datastax.driver.core.Session) : MessageDao {
+class MessageDaoImpl(private val session: CqlSession) : MessageDao {
 	init {
 		session.execute(
 			"""

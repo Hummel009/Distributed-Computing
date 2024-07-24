@@ -6,13 +6,12 @@ import com.github.hummel.dc.lab5.dto.request.MessageRequestToId
 import com.github.hummel.dc.lab5.service.MessageService
 import com.github.hummel.dc.lab5.util.Response
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Route.messagesRouting() {
+fun Routing.messagesRouting() {
 	val messagesService by inject<MessageService>()
 
 	route("/messages") {
@@ -25,7 +24,7 @@ fun Route.messagesRouting() {
 	}
 }
 
-private fun Route.checkMessages(messagesService: MessageService) {
+private fun Routing.checkMessages(messagesService: MessageService) {
 	get {
 		val messages = messagesService.getAll()
 
@@ -43,7 +42,7 @@ private fun Route.checkMessages(messagesService: MessageService) {
 	}
 }
 
-private fun Route.createMessage(messagesService: MessageService) {
+private fun Routing.createMessage(messagesService: MessageService) {
 	post {
 		val messageRequestTo = try {
 			call.receive<MessageRequestTo>()
@@ -67,7 +66,7 @@ private fun Route.createMessage(messagesService: MessageService) {
 	}
 }
 
-private fun Route.getMessage(messagesService: MessageService) {
+private fun Routing.getMessage(messagesService: MessageService) {
 	get("/{id?}") {
 		val id = call.parameters["id"] ?: return@get call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -89,7 +88,7 @@ private fun Route.getMessage(messagesService: MessageService) {
 	}
 }
 
-private fun Route.deleteMessage(messagesService: MessageService) {
+private fun Routing.deleteMessage(messagesService: MessageService) {
 	delete("/{id?}") {
 		val id = call.parameters["id"] ?: return@delete call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -111,7 +110,7 @@ private fun Route.deleteMessage(messagesService: MessageService) {
 	}
 }
 
-private fun Route.updateMessage(messagesService: MessageService) {
+private fun Routing.updateMessage(messagesService: MessageService) {
 	put {
 		val messageRequestToId = try {
 			call.receive<MessageRequestToId>()

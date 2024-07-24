@@ -22,7 +22,7 @@ fun configureRedis() {
 	testViaRedis("From Redis", "Connection established!")
 }
 
-fun testViaRedis(key: String, value: String) {
+fun testViaRedis(key: String, value: String?) {
 	try {
 		operator.set(key, value)
 		val test = operator.get(key)

@@ -1,6 +1,6 @@
 package com.github.hummel.dc.lab3.module
 
-import com.datastax.driver.core.Cluster
+import com.datastax.oss.driver.api.core.CqlSession
 import com.github.hummel.dc.lab3.dao.MessageDao
 import com.github.hummel.dc.lab3.dao.impl.MessageDaoImpl
 import com.github.hummel.dc.lab3.repository.MessagesRepository
@@ -13,9 +13,9 @@ val messagesRepositoryQualifier: StringQualifier = StringQualifier("messages_rep
 
 val dataModule: Module = module {
 	single<MessageDao> {
-		val cluster: Cluster = get()
+		val cluster: CqlSession = get()
 
-		MessageDaoImpl(cluster.connect("distcomp"))
+		MessageDaoImpl(cluster)
 	}
 
 	single<MessagesRepository>(messagesRepositoryQualifier) {

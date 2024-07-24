@@ -1,6 +1,6 @@
 package com.github.hummel.dc.lab3
 
-import com.datastax.driver.core.Cluster
+import com.datastax.oss.driver.api.core.CqlSession
 import com.github.hummel.dc.lab3.controller.configureRouting
 import com.github.hummel.dc.lab3.module.appModule
 import com.github.hummel.dc.lab3.module.dataModule
@@ -11,6 +11,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.doublereceive.*
 import org.koin.ktor.plugin.Koin
+import java.net.InetSocketAddress
 
 fun main() {
 	embeddedServer(Netty, port = 24130, module = Application::discussion).start(wait = true)
@@ -19,8 +20,10 @@ fun main() {
 fun Application.discussion() {
 	install(DoubleReceive)
 	install(Koin) {
-		dataModule.single<Cluster> {
-			Cluster.builder().withoutMetrics().addContactPoints("127.0.0.1").build()
+		dataModule.single<CqlSession> {
+			CqlSession.builder().addContactPoint(
+				InetSocketAddress("127.0.0.1", 9042)
+			).withLocalDatacenter("distcomp").build()
 		}
 		modules(dataModule, appModule)
 	}

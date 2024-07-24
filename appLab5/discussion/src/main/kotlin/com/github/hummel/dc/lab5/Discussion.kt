@@ -1,6 +1,6 @@
 package com.github.hummel.dc.lab5
 
-import com.datastax.driver.core.Cluster
+import com.datastax.oss.driver.api.core.CqlSession
 import com.github.hummel.dc.lab5.controller.configureRouting
 import com.github.hummel.dc.lab5.module.appModule
 import com.github.hummel.dc.lab5.module.dataModule
@@ -14,6 +14,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.koin.ktor.plugin.Koin
+import java.net.InetSocketAddress
 import java.time.Duration
 import java.util.*
 import kotlin.concurrent.thread
@@ -27,8 +28,10 @@ fun main() {
 fun Application.discussion() {
 	install(DoubleReceive)
 	install(Koin) {
-		dataModule.single<Cluster> {
-			Cluster.builder().withoutMetrics().addContactPoints("127.0.0.1").build()
+		dataModule.single<CqlSession> {
+			CqlSession.builder().addContactPoint(
+				InetSocketAddress("127.0.0.1", 9042)
+			).withLocalDatacenter("distcomp").build()
 		}
 		modules(dataModule, appModule)
 	}
