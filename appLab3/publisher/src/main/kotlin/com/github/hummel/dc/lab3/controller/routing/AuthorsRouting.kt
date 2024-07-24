@@ -6,12 +6,13 @@ import com.github.hummel.dc.lab3.dto.request.AuthorRequestToId
 import com.github.hummel.dc.lab3.service.AuthorService
 import com.github.hummel.dc.lab3.util.Response
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Routing.authorsRouting() {
+fun Route.authorsRouting() {
 	val authorsService by inject<AuthorService>()
 
 	route("/authors") {
@@ -24,7 +25,7 @@ fun Routing.authorsRouting() {
 	}
 }
 
-private fun Routing.checkAuthors(authorsService: AuthorService) {
+private fun Route.checkAuthors(authorsService: AuthorService) {
 	get {
 		val authors = authorsService.getAll()
 
@@ -42,7 +43,7 @@ private fun Routing.checkAuthors(authorsService: AuthorService) {
 	}
 }
 
-private fun Routing.createAuthor(authorsService: AuthorService) {
+private fun Route.createAuthor(authorsService: AuthorService) {
 	post {
 		val authorRequestTo = try {
 			call.receive<AuthorRequestTo>()
@@ -66,7 +67,7 @@ private fun Routing.createAuthor(authorsService: AuthorService) {
 	}
 }
 
-private fun Routing.getAuthor(authorsService: AuthorService) {
+private fun Route.getAuthor(authorsService: AuthorService) {
 	get("/{id?}") {
 		val id = call.parameters["id"] ?: return@get call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -88,7 +89,7 @@ private fun Routing.getAuthor(authorsService: AuthorService) {
 	}
 }
 
-private fun Routing.deleteAuthor(authorsService: AuthorService) {
+private fun Route.deleteAuthor(authorsService: AuthorService) {
 	delete("/{id?}") {
 		val id = call.parameters["id"] ?: return@delete call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -110,7 +111,7 @@ private fun Routing.deleteAuthor(authorsService: AuthorService) {
 	}
 }
 
-private fun Routing.updateAuthor(authorsService: AuthorService) {
+private fun Route.updateAuthor(authorsService: AuthorService) {
 	put {
 		val authorRequestToId = try {
 			call.receive<AuthorRequestToId>()

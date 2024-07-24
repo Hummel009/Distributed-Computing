@@ -27,10 +27,10 @@ dependencies {
 	implementation("io.insert-koin:koin-ktor:latest.release")
 	implementation("io.insert-koin:koin-logger-slf4j:latest.release")
 
-	implementation("io.ktor:ktor-client-core:latest.release")
-	implementation("io.ktor:ktor-client-cio:latest.release")
-	implementation("io.ktor:ktor-client-logging:latest.release")
-	implementation("io.ktor:ktor-client-content-negotiation:latest.release")
+	implementation("io.ktor:ktor-client-core")
+	implementation("io.ktor:ktor-client-cio")
+	implementation("io.ktor:ktor-client-logging")
+	implementation("io.ktor:ktor-client-content-negotiation")
 }
 
 java {

@@ -23,7 +23,7 @@ fun Application.discussion() {
 		dataModule.single<CqlSession> {
 			CqlSession.builder().addContactPoint(
 				InetSocketAddress("127.0.0.1", 9042)
-			).withLocalDatacenter("distcomp").build()
+			).withLocalDatacenter("datacenter1").withKeyspace("distcomp").build()
 		}
 		modules(dataModule, appModule)
 	}

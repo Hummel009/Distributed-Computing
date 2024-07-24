@@ -6,12 +6,13 @@ import com.github.hummel.dc.lab1.dto.request.IssueRequestToId
 import com.github.hummel.dc.lab1.service.IssueService
 import com.github.hummel.dc.lab1.util.Response
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Routing.issuesRouting() {
+fun Route.issuesRouting() {
 	val issuesService by inject<IssueService>()
 
 	route("/issues") {
@@ -24,7 +25,7 @@ fun Routing.issuesRouting() {
 	}
 }
 
-private fun Routing.checkIssues(issuesService: IssueService) {
+private fun Route.checkIssues(issuesService: IssueService) {
 	get {
 		val issues = issuesService.getAll()
 
@@ -42,7 +43,7 @@ private fun Routing.checkIssues(issuesService: IssueService) {
 	}
 }
 
-private fun Routing.createIssue(issuesService: IssueService) {
+private fun Route.createIssue(issuesService: IssueService) {
 	post {
 		val issueRequestTo = try {
 			call.receive<IssueRequestTo>()
@@ -66,7 +67,7 @@ private fun Routing.createIssue(issuesService: IssueService) {
 	}
 }
 
-private fun Routing.getIssue(issuesService: IssueService) {
+private fun Route.getIssue(issuesService: IssueService) {
 	get("/{id?}") {
 		val id = call.parameters["id"] ?: return@get call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -88,7 +89,7 @@ private fun Routing.getIssue(issuesService: IssueService) {
 	}
 }
 
-private fun Routing.deleteIssue(issuesService: IssueService) {
+private fun Route.deleteIssue(issuesService: IssueService) {
 	delete("/{id?}") {
 		val id = call.parameters["id"] ?: return@delete call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -110,7 +111,7 @@ private fun Routing.deleteIssue(issuesService: IssueService) {
 	}
 }
 
-private fun Routing.updateIssue(issuesService: IssueService) {
+private fun Route.updateIssue(issuesService: IssueService) {
 	put {
 		val issueRequestToId = try {
 			call.receive<IssueRequestToId>()

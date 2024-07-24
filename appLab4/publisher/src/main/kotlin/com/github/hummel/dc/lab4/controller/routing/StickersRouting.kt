@@ -7,12 +7,13 @@ import com.github.hummel.dc.lab4.sendViaKafka
 import com.github.hummel.dc.lab4.service.StickerService
 import com.github.hummel.dc.lab4.util.Response
 import io.ktor.http.*
+import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Routing.stickersRouting() {
+fun Route.stickersRouting() {
 	val stickersService by inject<StickerService>()
 
 	route("/stickers") {
@@ -25,7 +26,7 @@ fun Routing.stickersRouting() {
 	}
 }
 
-private fun Routing.checkStickers(stickersService: StickerService) {
+private fun Route.checkStickers(stickersService: StickerService) {
 	get {
 		val stickers = stickersService.getAll()
 
@@ -45,7 +46,7 @@ private fun Routing.checkStickers(stickersService: StickerService) {
 	}
 }
 
-private fun Routing.createSticker(stickersService: StickerService) {
+private fun Route.createSticker(stickersService: StickerService) {
 	post {
 		val stickerRequestTo = try {
 			call.receive<StickerRequestTo>()
@@ -71,7 +72,7 @@ private fun Routing.createSticker(stickersService: StickerService) {
 	}
 }
 
-private fun Routing.getSticker(stickersService: StickerService) {
+private fun Route.getSticker(stickersService: StickerService) {
 	get("/{id?}") {
 		val id = call.parameters["id"] ?: return@get call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -95,7 +96,7 @@ private fun Routing.getSticker(stickersService: StickerService) {
 	}
 }
 
-private fun Routing.deleteSticker(stickersService: StickerService) {
+private fun Route.deleteSticker(stickersService: StickerService) {
 	delete("/{id?}") {
 		val id = call.parameters["id"] ?: return@delete call.respond(
 			status = HttpStatusCode.BadRequest, message = Response(HttpStatusCode.BadRequest.value)
@@ -119,7 +120,7 @@ private fun Routing.deleteSticker(stickersService: StickerService) {
 	}
 }
 
-private fun Routing.updateSticker(stickersService: StickerService) {
+private fun Route.updateSticker(stickersService: StickerService) {
 	put {
 		val stickerRequestToId = try {
 			call.receive<StickerRequestToId>()

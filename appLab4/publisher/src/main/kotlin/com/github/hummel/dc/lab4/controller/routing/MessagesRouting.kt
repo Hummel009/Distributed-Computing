@@ -10,11 +10,12 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-internal fun Routing.messagesRouting() {
+internal fun Route.messagesRouting() {
 	val client = HttpClient(CIO) {
 		install(ContentNegotiation) {
 			json()
@@ -31,7 +32,7 @@ internal fun Routing.messagesRouting() {
 	}
 }
 
-private fun Routing.checkMessages(client: HttpClient) {
+private fun Route.checkMessages(client: HttpClient) {
 	get {
 		call.respond(
 			client.get("http://0.0.0.0:24130/api/v1.0/messages").bodyAsText()
@@ -41,7 +42,7 @@ private fun Routing.checkMessages(client: HttpClient) {
 	}
 }
 
-private fun Routing.createMessage(client: HttpClient) {
+private fun Route.createMessage(client: HttpClient) {
 	post {
 		val body = call.receive<MessageRequestTo>()
 		val result = client.post("http://localhost:24130/api/v1.0/messages") {
@@ -56,7 +57,7 @@ private fun Routing.createMessage(client: HttpClient) {
 	}
 }
 
-private fun Routing.getMessage(client: HttpClient) {
+private fun Route.getMessage(client: HttpClient) {
 	get("/{id?}") {
 		val id = call.parameters["id"]
 		val result = client.get("http://localhost:24130/api/v1.0/messages/$id")
@@ -68,7 +69,7 @@ private fun Routing.getMessage(client: HttpClient) {
 	}
 }
 
-private fun Routing.deleteMessage(client: HttpClient) {
+private fun Route.deleteMessage(client: HttpClient) {
 	delete("/{id?}") {
 		val id = call.parameters["id"]
 		val result = client.delete("http://localhost:24130/api/v1.0/messages/$id")
@@ -80,7 +81,7 @@ private fun Routing.deleteMessage(client: HttpClient) {
 	}
 }
 
-private fun Routing.updateMessage(client: HttpClient) {
+private fun Route.updateMessage(client: HttpClient) {
 	put {
 		val body = call.receive<MessageRequestToId>()
 		val result = client.put("http://localhost:24130/api/v1.0/messages") {
