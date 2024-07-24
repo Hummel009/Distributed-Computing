@@ -11,8 +11,8 @@ group = "com.github.hummel"
 version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 
 dependencies {
-	implementation("org.postgresql:postgresql:42.7.3")
-	implementation("com.h2database:h2:2.2.224")
+	implementation("org.postgresql:postgresql:latest.release")
+	implementation("com.h2database:h2:latest.release")
 
 	implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
 	implementation("io.ktor:ktor-server-content-negotiation-jvm")
@@ -22,8 +22,8 @@ dependencies {
 	implementation("io.ktor:ktor-server-netty-jvm")
 	implementation("io.ktor:ktor-server-double-receive")
 
-	implementation("io.insert-koin:koin-ktor:3.5.6")
-	implementation("io.insert-koin:koin-logger-slf4j:3.5.6")
+	implementation("io.insert-koin:koin-ktor:latest.release")
+	implementation("io.insert-koin:koin-logger-slf4j:latest.release")
 }
 
 java {

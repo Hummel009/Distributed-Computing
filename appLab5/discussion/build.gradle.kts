@@ -13,8 +13,8 @@ version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 dependencies {
 	implementation(project(":appLab5:common"))
 
-	implementation("org.postgresql:postgresql:42.7.3")
-	implementation("com.h2database:h2:2.2.224")
+	implementation("org.postgresql:postgresql:latest.release")
+	implementation("com.h2database:h2:latest.release")
 
 	implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
 	implementation("io.ktor:ktor-server-content-negotiation-jvm")
@@ -24,16 +24,16 @@ dependencies {
 	implementation("io.ktor:ktor-server-netty-jvm")
 	implementation("io.ktor:ktor-server-double-receive")
 
-	implementation("io.insert-koin:koin-ktor:3.5.6")
-	implementation("io.insert-koin:koin-logger-slf4j:3.5.6")
+	implementation("io.insert-koin:koin-ktor:latest.release")
+	implementation("io.insert-koin:koin-logger-slf4j:latest.release")
 
-	implementation("com.datastax.cassandra:cassandra-driver-core:3.0.8")
-	implementation("com.datastax.oss:java-driver-core:4.17.0")
-	implementation("com.ing.data:cassandra-jdbc-wrapper:4.12.0")
+	implementation("com.datastax.cassandra:cassandra-driver-core:latest.release")
+	implementation("com.datastax.oss:java-driver-core:latest.release")
+	implementation("com.ing.data:cassandra-jdbc-wrapper:latest.release")
 
-	implementation("org.apache.kafka:kafka-clients:3.7.0")
+	implementation("org.apache.kafka:kafka-clients:latest.release")
 
-	implementation("io.lettuce:lettuce-core:6.3.2.RELEASE")
+	implementation("io.lettuce:lettuce-core:latest.release")
 }
 
 java {
