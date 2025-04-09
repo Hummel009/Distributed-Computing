@@ -6,7 +6,6 @@ import com.github.hummel.dc.lab5.dto.request.MessageRequestToId
 import com.github.hummel.dc.lab5.service.MessageService
 import com.github.hummel.dc.lab5.util.Response
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -47,7 +46,7 @@ private fun Route.createMessage(messagesService: MessageService) {
 	post {
 		val messageRequestTo = try {
 			call.receive<MessageRequestTo>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 
@@ -115,7 +114,7 @@ private fun Route.updateMessage(messagesService: MessageService) {
 	put {
 		val messageRequestToId = try {
 			call.receive<MessageRequestToId>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 

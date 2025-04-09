@@ -33,7 +33,7 @@ class IssueDaoImpl(private val connection: Connection) : IssueDao {
 
 		val generatedKeys = statement.generatedKeys
 		if (generatedKeys.next()) {
-			return@withContext generatedKeys.getLong(1)
+			generatedKeys.getLong(1)
 		} else {
 			throw Exception("Unable to retrieve the id of the newly inserted item.")
 		}
@@ -43,7 +43,7 @@ class IssueDaoImpl(private val connection: Connection) : IssueDao {
 		val statement = connection.prepareStatement(Issues.DELETE_ISSUE)
 		statement.setLong(1, id)
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not delete item record")
@@ -79,7 +79,7 @@ class IssueDaoImpl(private val connection: Connection) : IssueDao {
 			val content = resultSet.getString(Issues.COLUMN_CONTENT)
 			val created = resultSet.getTimestamp(Issues.COLUMN_CREATED)
 			val modified = resultSet.getTimestamp(Issues.COLUMN_MODIFIED)
-			return@withContext Issue(id, authorId, title, content, created, modified)
+			Issue(id, authorId, title, content, created, modified)
 		} else {
 			throw Exception("Item record not found.")
 		}
@@ -96,7 +96,7 @@ class IssueDaoImpl(private val connection: Connection) : IssueDao {
 			item.id?.let { setLong(6, it) }
 		}
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not modify item record")

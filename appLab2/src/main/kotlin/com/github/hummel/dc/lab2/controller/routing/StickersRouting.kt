@@ -6,7 +6,6 @@ import com.github.hummel.dc.lab2.dto.request.StickerRequestToId
 import com.github.hummel.dc.lab2.service.StickerService
 import com.github.hummel.dc.lab2.util.Response
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -47,7 +46,7 @@ private fun Route.createSticker(stickersService: StickerService) {
 	post {
 		val stickerRequestTo = try {
 			call.receive<StickerRequestTo>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 
@@ -115,7 +114,7 @@ private fun Route.updateSticker(stickersService: StickerService) {
 	put {
 		val stickerRequestToId = try {
 			call.receive<StickerRequestToId>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 

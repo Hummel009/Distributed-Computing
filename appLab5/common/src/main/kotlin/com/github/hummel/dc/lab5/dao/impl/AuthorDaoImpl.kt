@@ -34,7 +34,7 @@ class AuthorDaoImpl(private val connection: Connection) : AuthorDao {
 
 		val generatedKeys = statement.generatedKeys
 		if (generatedKeys.next()) {
-			return@withContext generatedKeys.getLong(1)
+			generatedKeys.getLong(1)
 		} else {
 			throw Exception("Unable to retrieve the id of the newly inserted item.")
 		}
@@ -44,7 +44,7 @@ class AuthorDaoImpl(private val connection: Connection) : AuthorDao {
 		val statement = connection.prepareStatement(Authors.DELETE_AUTHOR)
 		statement.setLong(1, id)
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not delete item record.")
@@ -82,7 +82,7 @@ class AuthorDaoImpl(private val connection: Connection) : AuthorDao {
 			val password = resultSet.getString(Authors.COLUMN_PASSWORD)
 			val firstname = resultSet.getString(Authors.COLUMN_FIRSTNAME)
 			val lastname = resultSet.getString(Authors.COLUMN_LASTNAME)
-			return@withContext Author(
+			Author(
 				id = id, login = login, password = password, firstname = firstname, lastname = lastname
 			)
 		} else {
@@ -100,7 +100,7 @@ class AuthorDaoImpl(private val connection: Connection) : AuthorDao {
 			item.id?.let { setLong(5, it) }
 		}
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not modify item record.")

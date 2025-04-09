@@ -28,7 +28,7 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
 
 		val generatedKeys = statement.generatedKeys
 		if (generatedKeys.next()) {
-			return@withContext generatedKeys.getLong(1)
+			generatedKeys.getLong(1)
 		} else {
 			throw Exception("Unable to retrieve the id of the newly inserted item.")
 		}
@@ -38,7 +38,7 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
 		val statement = connection.prepareStatement(Messages.DELETE_MESSAGE)
 		statement.setLong(1, id)
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not delete item record.")
@@ -68,7 +68,7 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
 		if (resultSet.next()) {
 			val issueId = resultSet.getLong(Messages.COLUMN_ISSUE_ID)
 			val content = resultSet.getString(Messages.COLUMN_CONTENT)
-			return@withContext Message(id, issueId, content)
+			Message(id, issueId, content)
 		} else {
 			throw Exception("Item record not found.")
 		}
@@ -82,7 +82,7 @@ class MessageDaoImpl(private val connection: Connection) : MessageDao {
 			item.id?.let { setLong(3, it) }
 		}
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not modify item record.")

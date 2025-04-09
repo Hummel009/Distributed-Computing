@@ -7,7 +7,6 @@ import com.github.hummel.dc.lab5.sendViaKafka
 import com.github.hummel.dc.lab5.service.AuthorService
 import com.github.hummel.dc.lab5.util.Response
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -50,7 +49,7 @@ private fun Route.createAuthor(authorsService: AuthorService) {
 	post {
 		val authorRequestTo = try {
 			call.receive<AuthorRequestTo>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 
@@ -124,7 +123,7 @@ private fun Route.updateAuthor(authorsService: AuthorService) {
 	put {
 		val authorRequestToId = try {
 			call.receive<AuthorRequestToId>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 

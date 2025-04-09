@@ -19,7 +19,7 @@ dependencies {
 	implementation("io.ktor:ktor-server-netty-jvm")
 	implementation("io.ktor:ktor-server-double-receive")
 
-	implementation("io.insert-koin:koin-ktor:latest.release")
+	implementation("io.insert-koin:koin-ktor3:latest.release")
 	implementation("io.insert-koin:koin-logger-slf4j:latest.release")
 }
 

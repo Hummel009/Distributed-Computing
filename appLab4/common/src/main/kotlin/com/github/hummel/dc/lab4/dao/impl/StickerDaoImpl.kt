@@ -27,7 +27,7 @@ class StickerDaoImpl(private val connection: Connection) : StickerDao {
 
 		val generatedKeys = statement.generatedKeys
 		if (generatedKeys.next()) {
-			return@withContext generatedKeys.getLong(1)
+			generatedKeys.getLong(1)
 		} else {
 			throw Exception("Unable to retrieve the id of the newly inserted item.")
 		}
@@ -37,7 +37,7 @@ class StickerDaoImpl(private val connection: Connection) : StickerDao {
 		val statement = connection.prepareStatement(Stickers.DELETE_STICKER)
 		statement.setLong(1, id)
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not delete item record.")
@@ -65,7 +65,7 @@ class StickerDaoImpl(private val connection: Connection) : StickerDao {
 		val resultSet = statement.executeQuery()
 		if (resultSet.next()) {
 			val name = resultSet.getString(Stickers.COLUMN_NAME)
-			return@withContext Sticker(id, name)
+			Sticker(id, name)
 		} else {
 			throw Exception("Item record not found.")
 		}
@@ -78,7 +78,7 @@ class StickerDaoImpl(private val connection: Connection) : StickerDao {
 			item.id?.let { setLong(2, it) }
 		}
 
-		return@withContext try {
+		try {
 			statement.executeUpdate()
 		} catch (_: Exception) {
 			throw Exception("Can not modify item record.")

@@ -54,7 +54,7 @@ class MessageDaoImpl(private val session: CqlSession) : MessageDao {
 		val rs = session.execute(Messages.SELECT_MESSAGES)
 		val generatedKeys = rs.all()
 		if (generatedKeys.isNotEmpty()) {
-			return@withContext generatedKeys.maxByOrNull {
+			generatedKeys.maxByOrNull {
 				it.getLong(Messages.COLUMN_ID.toString())
 			}?.getLong(Messages.COLUMN_ID.toString()) ?: 1
 		} else {
@@ -63,7 +63,7 @@ class MessageDaoImpl(private val session: CqlSession) : MessageDao {
 	}
 
 	override suspend fun deleteById(id: Long): Int = withContext(Dispatchers.IO) {
-		return@withContext try {
+		try {
 			val entity = getById(id)
 			session.execute(
 				"""
@@ -103,14 +103,14 @@ class MessageDaoImpl(private val session: CqlSession) : MessageDao {
 	override suspend fun getById(id: Long): Message = withContext(Dispatchers.IO) {
 		val all = getAll()
 		if (all.isNotEmpty()) {
-			return@withContext all.last { it.id == id }
+			all.last { it.id == id }
 		} else {
 			throw Exception("Item record not found.")
 		}
 	}
 
 	override suspend fun update(item: Message): Int = withContext(Dispatchers.IO) {
-		return@withContext try {
+		try {
 			session.execute(
 				"""
 				UPDATE ${Messages.TABLE_NAME}

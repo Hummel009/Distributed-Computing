@@ -7,7 +7,6 @@ import com.github.hummel.dc.lab5.sendViaKafka
 import com.github.hummel.dc.lab5.service.IssueService
 import com.github.hummel.dc.lab5.util.Response
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -50,7 +49,7 @@ private fun Route.createIssue(issuesService: IssueService) {
 	post {
 		val issueRequestTo = try {
 			call.receive<IssueRequestTo>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 
@@ -124,7 +123,7 @@ private fun Route.updateIssue(issuesService: IssueService) {
 	put {
 		val issueRequestToId = try {
 			call.receive<IssueRequestToId>()
-		} catch (e: Exception) {
+		} catch (_: Exception) {
 			null
 		}
 
